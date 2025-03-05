@@ -4,7 +4,8 @@ pipeline {
     environment {
     DOCKERHUB_CREDENTIALS_ID = 'docker-login'
     DOCKERHUB_REPO = 'hetahar/dist-test'
-    DOCKERHUB_IMAGE_TAG = 'latest'}
+    DOCKERHUB_IMAGE_TAG = 'latest'
+    }
 
     tools {
         jdk 'Java 21'
