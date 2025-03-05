@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-    DOCKERHUB_CREDENTIALS_ID = 'a56b5447-7df9-473a-a742-1dc77a2597d3'
+    DOCKERHUB_CREDENTIALS_ID = 'docker-login'
     DOCKERHUB_REPO = 'hetahar/dist-test'
     DOCKERHUB_IMAGE_TAG = 'latest'}
 
