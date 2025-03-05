@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+    DOCKERHUB_CREDENTIALS_ID = 'a56b5447-7df9-473a-a742-1dc77a2597d3'
+    DOCKERHUB_REPO = 'hetahar/dist-calc'
+    DOCKERHUB_IMAGE_TAG = 'latest'}
+
     tools {
         jdk 'Java 21'
         maven 'maven_3.9.9'  // Ensure this is correctly configured in Jenkins
@@ -42,5 +47,21 @@ pipeline {
                 jacoco()
             }
         }
+        stage('Build Docker Image') {
+                    steps {
+                        script {
+                            docker.build("${env.DOCKERHUB_REPO}:${env.DOCKER_IMAGE_TAG}")
+                        }
+                    }
+                }
+                stage('Push Docker Image to Docker Hub') {
+                    steps {
+                        script {
+                            docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
+                                docker.image("${env.DOCKERHUB_REPO}:${env.DOCKER_IMAGE_TAG}").push()
+                            }
+                        }
+                    }
+                }
     }
 }
